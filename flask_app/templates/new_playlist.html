@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Playlist</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <body class="bg-dark text-success">
+    <nav class="d-flex justify-content-between align-items-center col-12 border-bottom border-light">
+        <h1 class="text-center">Welcome {{user.first_name}}!!!</h1>
+        <div class="d-flex col-4 justify-content-around">
+            <a href="/dashboard" class="btn btn-success">Home</a>
+            <a href="/logout" class="btn btn-primary">Logout</a>
+        </div>
+    </nav>
+    <form action="/create/playlist" method="post" class="col-10 p-4 my-4 bg-dark text-light mx-auto">
+        <h2 class="text-success">Create a New Playlist</h2>
+        {% with messages = get_flashed_messages(category_filter=['playlist']) %}
+            {% if messages %}
+            <div class="alert alert-danger" role="alert">
+                <strong>ERROR!!!!</strong>
+                    {% for message in messages %}
+                    <p>{{message}}</p>
+                    {% endfor %}
+            </div>
+            {% endif %}
+        {% endwith %}
+        
+        <div class="d-flex justify-content-between col-9">
+            
+            <div class="col-4">
+                <div class="form-group">
+                    <label for="title">Title:</label>
+                    <input type="text" name="title" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="genres">Genres:</label>
+                    <input type="text" name="genres" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea name="description" cols="30" rows="5" class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="link">Link:</label>
+                    <textarea name="link" cols="30" rows="5" class="form-control"></textarea> 
+                </div>
+                    <input type="submit" value="Add Playlist" class="btn btn-success">
+                
+            </div>
+        </div>
+    </form>
+    </body>
+</body>
+</html>

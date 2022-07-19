@@ -16,7 +16,7 @@
                 <a href="/logout" class="btn btn-primary">Logout</a>
             </div>
         </nav>
-        <div class="col-8 mx-auto mt-5">
+        <div class="col-9 mx-auto mt-5">
             <h3>ALL PLAYLISTS</h3>
             <table class="table table-bordered bg-light text-dark">
                 <thead>
@@ -25,20 +25,21 @@
                         <th>Playlist Title</th>
                         <th>Link to Playlist</th>
                         <th>Actions</th>
-                        <th>Likes</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for playlist in playlists %}
                         <tr>
-                            <td>{{playlist.user_id}}</td>
+                            <td>{{playlist.user.first_name}}</td>
                             <td>{{playlist.title}}</td>
                             <td><a href="{{playlist.link}}">{{playlist.link}}</a></td>
                             <td>
                                 <a href="/playlist/{{playlist.id}}">View</a>
                                 {% if playlist.user_id == session.user_id %}
-                                <a href="/edit/playlist/{{playlist.id}}">Edit</a>
-                                <a href="/destroy/playlist/{{playlist.id}}">Delete</a>
+                                | <a href="/edit/playlist/{{playlist.id}}">Edit</a>
+                                | <a href="/destroy/playlist/{{playlist.id}}">Delete</a>
+                                {% else %}
+                                | <a href="/like/playlist/{{playlist.id}}">Like</a>
                                 {% endif %}
                             </td>
                         </tr>

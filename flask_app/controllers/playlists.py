@@ -60,6 +60,7 @@ def update_playlist():
 
 @app.route('/playlist/<int:id>')
 def show_playlist(id):
+    this_playlist = Playlist.read_playlist_with_likes({"id": id})
     if 'user_id' not in session:
         return redirect('/logout')
     data = {
@@ -68,7 +69,7 @@ def show_playlist(id):
     user_data = {
         "id":session['user_id']
     }
-    return render_template("show_playlist.html",playlist=Playlist.get_one(data),user=User.get_by_id(user_data))
+    return render_template("show_playlist.html",playlist=this_playlist,user=User.get_by_id(user_data))
 
 @app.route('/destroy/playlist/<int:id>')
 def destroy_playlist(id):
@@ -78,4 +79,13 @@ def destroy_playlist(id):
         "id":id
     }
     Playlist.destroy(data)
+    return redirect('/dashboard')
+
+@app.route('/like/playlist/<int:id>')
+def like_playlist(id):
+    data = {
+        "playlist_id": id,
+        "user_id": session['user_id'],
+    }
+    Playlist.like_playlist(data)
     return redirect('/dashboard')

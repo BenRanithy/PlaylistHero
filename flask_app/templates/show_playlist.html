@@ -22,10 +22,14 @@
         <div class="border-light bg-light text-dark"">
             <h3 class="card-title text-success">Playlist Details</h3>
             <h5 class="card-text">Title:  {{playlist.title}}</h5>
-            <p class="card-text">Created by:  {{playlist.user_id}}</p>
+            <p class="card-text">Created by:  {{playlist.user.first_name}}</p>
             <p class="card-text">Genres:  {{playlist.genres}}</p>
             <p class="card-text">Description:  {{playlist.description}}</p>
             <p class="card-text">Link: <a href="{{playlist.link}}">{{playlist.link}}</a></p>
+            <p>Liked by:</p>
+                {% for user in playlist.liked_by %}
+                    <p class="text-success">{{user.first_name}}</p>
+                {% endfor %}
         </div>
     </div>
 </body>
